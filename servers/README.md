@@ -9,23 +9,24 @@
              **$** `git clone https://github.com/gowashteam/gowash.git`
 -   ***Step2***
          Open the file ***testaccess.txt***
-         Follow the instructions on the file
+         Follow the instruction on the file
 -   ***Step3***
          Commit the change then Push the commit back to the remote repo
 -   ***Step4***
          Go to https://github.com/gowashteam/gowash/blob/master/testaccess.txt and check to see if the change reflects.
          If you see the change then your Contineous Integration Test Passed. IF not, Please let me know and I will help             figure out the problem.
--   ***Step5*** Check your name below when DONE
+-   ***Step5*** Check your name below when DONE and then commit and push back to repo
        - [x] @gowashteam/okeyonyia123
       - [ ] @gowashteam/KRUTI
       - [ ] @gowashteam/charmishah928
       - [ ] @gowashteam/Keyaa12
 ## Task for Week Two
 ### Get A Virtual Private Server and deploy MongoDB database
--   [ ]  Provision a Virtual Private Server with Digital Ocean
+-  [ ]  Provision a Virtual Private Server with Digital Ocean
 -   [ ] Set the Envirunment variable from your Development Machine with `Docker-Machine Eval`
 -   [ ] Spin up a MongoDB Image from DockerHub and run a new instance in a Docker container
 -   [ ] Deploy the Container on the Virtual Private Server then Get the Socket for communication with Server pages
+
 ### [ ] Build the Server that handles user request to SIGNUP new account
   ### Server Folder Structure
 -  Servers
@@ -36,15 +37,17 @@
            -    ***sha256.go***
            -    ***uuid.go***
         - ***SignupServer.go***
+
 ### [ ] Build a server that handles user request to ACTIVATE new account
 -  Servers
-    -   ActivateUSer
+    -   ActivaeUSer
         - handlers
           -   ***activateUser.go***
         - utilities ( ***Re-usable class*** )
            -    ***sha256.go***
            -    ***uuid.go***
         - ***ActivateUserServer.go***
+
 ### [ ] Build a server that handles user request to LOGIN user
 -  Servers
     -   Login
@@ -54,6 +57,7 @@
            -    ***sha256.go***
            -    ***uuid.go***
         - ***loginServer.go***
+
 ### [ ] Build a server that handles user request to RECOVER-PASSWORD
 -  Servers
     -   RecoverPassword
