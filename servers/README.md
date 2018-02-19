@@ -27,43 +27,43 @@
 -   [ ] Spin up a MongoDB Image from DockerHub and run a new instance in a Docker container
 -   [ ] Deploy the Container on the Virtual Private Server then Get the Socket for communication with Server pages
 
-### [ ] Build the Server that handles user request to SIGNUP new account
+###  Build the Server that handles user request to SIGNUP new account
   ### Server Folder Structure
 -  Servers
     -   Signup
         - handlers
-          -   ***signup.go***
+          -  [ ] ***signup.go***
         - utilities ( ***Re-usable class*** )
-           -    ***sha256.go***
-           -    ***uuid.go***
-        - ***SignupServer.go***
+           -    [ ] ***sha256.go***
+           -    [ ] ***uuid.go***
+        - [ ] ***SignupServer.go***
 
-### [ ] Build a server that handles user request to ACTIVATE new account
+### Build a server that handles user request to ACTIVATE new account
 -  Servers
     -   ActivaeUSer
         - handlers
-          -   ***activateUser.go***
+          -   [ ] ***activateUser.go***
         - utilities ( ***Re-usable class*** )
-           -    ***sha256.go***
-           -    ***uuid.go***
-        - ***ActivateUserServer.go***
+           -    [ ] ***sha256.go***
+           -    [ ] ***uuid.go***
+        - [ ] ***ActivateUserServer.go***
 
-### [ ] Build a server that handles user request to LOGIN user
+### Build a server that handles user request to LOGIN user
 -  Servers
     -   Login
         - handlers
-          -   ***login.go***
+          -   [ ] ***login.go***
         - utilities ( ***Re-usable class*** )
-           -    ***sha256.go***
-           -    ***uuid.go***
-        - ***loginServer.go***
+           -    [ ] ***sha256.go***
+           -    [ ] ***uuid.go***
+        - [ ] ***loginServer.go***
 
 ### [ ] Build a server that handles user request to RECOVER-PASSWORD
 -  Servers
     -   RecoverPassword
         - handlers
-          -   ***passwordRecovery.go***
+          -   [ ] ***passwordRecovery.go***
         - utilities ( ***Re-usable class*** )
-           -    ***sha256.go***
-           -    ***uuid.go***
-        - ***PRServer.go***
+           -   [ ] ***sha256.go***
+           -    [ ] ***uuid.go***
+        - [ ] ***PRServer.go***
