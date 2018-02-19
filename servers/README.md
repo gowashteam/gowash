@@ -6,14 +6,14 @@
 -   ### Instructions on how to Test Integration
 -   ***Step1***
          Clone the repo on your command line using Git with the following command
-             **$** `git clone https://github.com/okeyonyia123/Round-Robin-CPU-Scheduling.git`
+             **$** `git clone https://github.com/gowashteam/gowash.git`
 -   ***Step2***
          Open the file ***testaccess.txt***
-         Follow the instruction on the file
+         Follow the instructions on the file
 -   ***Step3***
          Commit the change then Push the commit back to the remote repo
 -   ***Step4***
-         Go to and check to see if the change reflects.
+         Go to https://github.com/gowashteam/gowash/blob/master/testaccess.txt and check to see if the change reflects.
          If you see the change then your Contineous Integration Test Passed. IF not, Please let me know and I will help             figure out the problem.
 -   ***Step5*** Check your name below when DONE
        - [x] @gowashteam/okeyonyia123
@@ -38,7 +38,7 @@
         - ***SignupServer.go***
 ### [ ] Build a server that handles user request to ACTIVATE new account
 -  Servers
-    -   ActivaeUSer
+    -   ActivateUSer
         - handlers
           -   ***activateUser.go***
         - utilities ( ***Re-usable class*** )
