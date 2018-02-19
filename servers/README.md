@@ -4,8 +4,8 @@ This server is designed and being built with ***microservice** architecture, whe
 ![Microservice Architecture](server.jpg)
 ## Tasks for week One
 
--[x] Comprehensive research on Implementation of Idea and Technology to achieve this
--[x] Build a Contineous Integration Pipeline with  Git
+[x] Comprehensive research on Implementation of Idea and Technology to achieve this
+[x] Build a Contineous Integration Pipeline with  Git
 -   [x] Alert Team members to test the Integration Pipepline and Mark their names to indicate successful Integration
 -   ### Instructions on how to Test Integration
 -   ***Step1***
