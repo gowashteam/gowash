@@ -1,6 +1,9 @@
 # Progress and Documentation for Okey Onyia
+## The Design
+This server is designed and being built with ***microservice** architecture, where each service runs in ***parallel*** with one another and in  ***series*** with the central datastore (MongoDB)
+![Microservice Architecture  - This will keep growing](server/server.jpg)
 ## Tasks for week One
--[x]  Comprehensive research on Implementation of Idea and Technology to achive this
+-[x] Comprehensive research on Implementation of Idea and Technology to achive this
 -[x] Build a Contineous Integration Pipeline with  Git
 -   [x] Alert Team members to test the Integration Pipepline and Mark their names to indicate successful Integration
 -   ### Instructions on how to Test Integration
@@ -21,14 +24,15 @@
       - [ ] @gowashteam/charmishah928
       - [ ] @gowashteam/Keyaa12
 ## Task for Week Two
-### Get A Virtual Private Server and deploy MongoDB database
+### Provision A Virtual Private Server and deploy MongoDB database
 -  [ ]  Provision a Virtual Private Server with Digital Ocean
 -   [ ] Set the Envirunment variable from your Development Machine with `Docker-Machine Eval`
--   [ ] Spin up a MongoDB Image from DockerHub and run a new instance in a Docker container
--   [ ] Deploy the Container on the Virtual Private Server then Get the Socket for communication with Server pages
+-   [ ] Pull a MongoDB Image from DockerHub and run a new instance in a Docker container
+-   [ ] Deploy the Container on the Virtual Private Server then Get the Socket for communication with other microservices
 
-###  Build the Server that handles user request to SIGNUP new account
-  ### Server Folder Structure
+### MICROSERVICES
+
+###  SIGNUP new account
 -  Servers
     -   Signup
         - handlers
@@ -38,7 +42,7 @@
            -    [ ] ***uuid.go***
         - [ ] ***SignupServer.go***
 
-### Build a server that handles user request to ACTIVATE new account
+### ACTIVATE new account
 -  Servers
     -   ActivaeUSer
         - handlers
@@ -48,7 +52,7 @@
            -    [ ] ***uuid.go***
         - [ ] ***ActivateUserServer.go***
 
-### Build a server that handles user request to LOGIN user
+### LOGIN-USER
 -  Servers
     -   Login
         - handlers
@@ -58,7 +62,7 @@
            -    [ ] ***uuid.go***
         - [ ] ***loginServer.go***
 
-### [ ] Build a server that handles user request to RECOVER-PASSWORD
+### RECOVER-PASSWORD
 -  Servers
     -   RecoverPassword
         - handlers
