@@ -3,11 +3,10 @@
 This server is designed and being built with ***microservice** architecture, where each service runs in ***parallel*** with one another and in  ***series*** with the central datastore (MongoDB)
 ![Microservice Architecture](server.jpg)
 ## Tasks for week One
-
-[x] Comprehensive research on Implementation of Idea and Technology to achieve this
-[x] Build a Contineous Integration Pipeline with  Git
+-   [x] Comprehensive research on Implementation of Idea and Technology to achieve this
+-   [x] Build a Contineous Integration Pipeline with  Git
 -   [x] Alert Team members to test the Integration Pipepline and Mark their names to indicate successful Integration
--   ### Instructions on how to Test Integration
+### Instructions on how to Test Integration
 -   ***Step1***
          Clone the repo on your command line using Git with the following command
              **$** `git clone https://github.com/gowashteam/gowash.git`
