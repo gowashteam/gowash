@@ -1,6 +1,8 @@
 # Progress and Documentation for Okey Onyia
 ## The Design
-This server is designed and being built with ***microservice** architecture, where each service runs in ***parallel*** with one another and in  ***series*** with the central datastore (MongoDB)
+This server is designed and being built with ***microservice** architecture, where each service runs in ***parallel*** with one another and in  ***series*** with the central datastore (MongoDB).
+
+I'm building this server in a TEST-DRIVEN development approach leveraging Golang's net/http/httptest package for unit testing
 ![Microservice Architecture](server.jpg)
 ## Tasks for week One
 -   [x] Comprehensive research on Implementation of Idea and Technology to achieve this
@@ -25,22 +27,39 @@ This server is designed and being built with ***microservice** architecture, whe
       - [ ] @gowashteam/Keyaa12
 ## Task for Week Two
 ### Provision A Virtual Private Server and deploy MongoDB database
--  [ ]  Provision a Virtual Private Server with Digital Ocean
--   [ ] Set the Envirunment variable from your Development Machine with `Docker-Machine Eval`
--   [ ] Pull a MongoDB Image from DockerHub and run a new instance in a Docker container
--   [ ] Deploy the Container on the Virtual Private Server then Get the Socket for communication with other microservices
+-  [x]  Provision a Virtual Private Server with Digital Ocean
+    -   Generate a token from Digital Ocean and copy to clipboard
+    -   Provision a VM
+        - **$** `docker-machine create --driver digitalocean --digitalocean-access-token ****** gowash `
+-   [x] Set the Envirunment variable from your Development Machine with `Docker-Machine Eval`
+    - **$** `eval $(docker-machine env gowash)`
+-   [x] Pull a MongoDB Image from DockerHub
+    - **$** `docker pull mongo`
+-   [x] Run a new instance in a Docker container
+    - **$** `docker run -p27017:27017 --name gowashmongo -d mongo`
+-   [x] Deploy the Container on the Virtual Private Server then Get the Socket for communication with other microservices
+    - **Gowash Container is already running Live**
 
 ### MICROSERVICES
 
 ###  SIGNUP new account
+-   [x] Build and test handlers
 -  Servers
     -   Signup
         - handlers
+          -  [x] ***homepage.go***
           -  [ ] ***signup.go***
+        - datastore
+          - [x] ***datastore.go***
+          - [x] ***mongodb.go***
+        - models
+          - [x] ***user.go***
+        - tests
+          - [x] ***homepage_test.go***
         - utilities ( ***Re-usable class*** )
-           -    [ ] ***sha256.go***
-           -    [ ] ***uuid.go***
-        - [ ] ***SignupServer.go***
+           -    [x] ***sha256.go***
+           -    [x] ***uuid.go***
+        - [x] ***SignupServer.go***
 
 ### ACTIVATE new account
 -  Servers
