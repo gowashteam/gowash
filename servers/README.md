@@ -1,8 +1,9 @@
 # Progress and Documentation for Okey Onyia
 ## The Design
-This server is designed and being built with ***microservice** architecture, where each service runs in ***parallel*** with one another and in  ***series*** with the central datastore (MongoDB).
+  This server is designed and being built with ***microservice** architecture, where each service runs in ***parallel*** with one another and in  ***series*** with the central datastore (MongoDB).
 
-I'm building this server in a TEST-DRIVEN development approach leveraging Golang's net/http/httptest package for unit testing
+  I'm building this server in a TEST-DRIVEN development approach leveraging Golang's net/http/httptest package for unit testing
+  
 ![Microservice Architecture](server.jpg)
 ## Tasks for week One
 -   [x] Comprehensive research on Implementation of Idea and Technology to achieve this
