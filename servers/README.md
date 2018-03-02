@@ -3,7 +3,7 @@
   This server is designed and being built with ***microservice** architecture, where each service runs in ***parallel*** with one another and in  ***series*** with the central datastore (MongoDB).
 
   I'm building this server in a TEST-DRIVEN development approach leveraging Golang's net/http/httptest package for unit testing
-  
+
 ![Microservice Architecture](server.jpg)
 ## Tasks for week One
 -   [x] Comprehensive research on Implementation of Idea and Technology to achieve this
@@ -42,26 +42,37 @@
 -   [x] Deploy the Container on the Virtual Private Server then Get the Socket for communication with other microservices
     - **Gowash Container is already running Live**
 
+
 ### MICROSERVICES
 
+## Task for Week Three
+
 ###  SIGNUP new account
--   [x] Build and test handlers
+-   [ ] Build and test handlers ***ungoing***
 -  Servers
-    -   Signup
-        - handlers
-          -  [x] ***homepage.go***
-          -  [ ] ***signup.go***
+    -   [ ] Signup
+        - common
+          - [ ] ***common.go***
         - datastore
           - [x] ***datastore.go***
           - [x] ***mongodb.go***
+        - handlers
+          -  [x] ***homepage.go***
+          -  [x] ***signup.go***
+        - middleware ( for authentication)
+          - [ ] ***not implemented***
         - models
           - [x] ***user.go***
         - tests
-          - [x] ***homepage_test.go***
-        - utilities ( ***Re-usable class*** )
-           -    [x] ***sha256.go***
-           -    [x] ***uuid.go***
-        - [x] ***SignupServer.go***
+          - [x] ***homepage_test.go*** (still growing )
+        - util ( ***Re-usable class*** )
+          - [x] ***sha256.go***
+          - [x] ***uuid.go***
+        - validation
+          - [x] ***validation.go*** (still growing)
+        - [x] ***SignupServer.go*** (still growing)
+
+## Task for Week Four
 
 ### ACTIVATE new account
 -  Servers
@@ -73,6 +84,7 @@
            -    [ ] ***uuid.go***
         - [ ] ***ActivateUserServer.go***
 
+## Task for Week Five
 ### LOGIN-USER
 -  Servers
     -   Login
@@ -83,6 +95,7 @@
            -    [ ] ***uuid.go***
         - [ ] ***loginServer.go***
 
+## Task for Week Six
 ### RECOVER-PASSWORD
 -  Servers
     -   RecoverPassword
