@@ -3,7 +3,7 @@ package datastore
 import (
 	"errors"
 
-	"github.com/okeyonyia123/gowash/servers/signup/models"
+	"github.com/okeyonyia123/gowash/servers/Signup/models"
 )
 
 type Datastore interface {

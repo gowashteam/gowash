@@ -1,7 +1,7 @@
 package datastore
 
 import (
-	"github.com/okeyonyia123/gowash/servers/signup/models"
+	"github.com/okeyonyia123/gowash/servers/Signup/models"
 
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -23,7 +23,7 @@ func NewMongoDBDatastore(url string) (*MongoDBDatastore, error) {
 	}, nil
 }
 
-func (m *MongoDBDatastore) CreateUser(user *models.User) error {
+func (m *MongoDBDatastore) PostUser(user *models.User) (*models.User, error) {
 
 	session := m.Copy()
 
@@ -34,7 +34,7 @@ func (m *MongoDBDatastore) CreateUser(user *models.User) error {
 		return err
 	}
 
-	return nil
+	return GetUser(user.Username)
 }
 
 func (m *MongoDBDatastore) GetUser(username string) (*models.User, error) {
