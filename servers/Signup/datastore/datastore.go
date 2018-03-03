@@ -7,7 +7,7 @@ import (
 )
 
 type Datastore interface {
-	CreateUser(user *models.User) error
+	PostUser(user *models.User) (*models.User, error)
 	GetUser(username string) (*models.User, error)
 	Close()
 }

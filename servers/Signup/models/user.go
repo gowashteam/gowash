@@ -3,7 +3,6 @@ package models
 import (
 	"time"
 
-	"github.com/okeyonyia123/gowash/servers/Signup/handlers"
 	"github.com/okeyonyia123/gowash/servers/signup/util"
 )
 
@@ -18,20 +17,20 @@ type User struct {
 	TimestampModified int64  `json:"timestampModified" bson:"timestampModified"`
 }
 
-func NewUser(form *handlers.Form) *User {
+func NewUser(FieldValues map[string]string) *User {
 
-	passwordHash := util.SHA256OfString(form.FieldValues[password])
+	passwordHash := util.SHA256OfString(FieldValues["password"])
 	now := time.Now()
 	unixTimestamp := now.Unix()
 	u := User{
-		UUID: util.GenerateUUID(),
-		Username:          form.FieldValues[username],
-		FirstName:         form.FieldValues[firstName],
-		LastName:          form.FieldValues[lastName],
-		Email:             form.FieldValues[email],
+		UUID:              util.GenerateUUID(),
+		Username:          FieldValues["username"],
+		FirstName:         FieldValues["firstName"],
+		LastName:          FieldValues["lastName"],
+		Email:             FieldValues["email"],
 		PasswordHash:      passwordHash,
 		TimestampCreated:  unixTimestamp,
-		TimestampModified: unixTimestamp
+		TimestampModified: unixTimestamp,
 	}
 	return &u
 }

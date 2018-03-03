@@ -1,11 +1,11 @@
 package common
 
 import (
-	"github.com/okeyonyia123/gowash/servers/signup/datastore"
+	"github.com/okeyonyia123/gowash/servers/Signup/datastore"
 )
 
 type Env struct {
-	database datastore.Datastore
+	DB datastore.Datastore
 }
 
 func getConnection() {

@@ -31,10 +31,10 @@ func (m *MongoDBDatastore) PostUser(user *models.User) (*models.User, error) {
 	userCollection := session.DB("gowash").C("User")
 	err := userCollection.Insert(user)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return GetUser(user.Username)
+	return m.GetUser(user.Username)
 }
 
 func (m *MongoDBDatastore) GetUser(username string) (*models.User, error) {
@@ -47,10 +47,6 @@ func (m *MongoDBDatastore) GetUser(username string) (*models.User, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	return &u, nil
-
-}
-
-func (m *MongoDBDatastore) Close() {
-	m.Close()
 }

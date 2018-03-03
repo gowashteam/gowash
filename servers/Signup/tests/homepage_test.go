@@ -37,30 +37,35 @@ func TestHomePage(t *testing.T) {
 func TestSignUp(t *testing.T) {
 	//create a Request
 
-	req, err := http.NewRequest("GET", "http://localhost:8084/signup", nil)
+	data := `{
+		"email":           {"onyia.okey@gmail.com"},
+		"username":        {"des1201"},
+		"firstname":       {"okey"},
+		"lastname":        {"onyia"},
+		"password":        {"security"},
+		"confirmpassword": {"security"},
+	}`
+
+	req, err := http.NewRequest("POST", "/signup", nil)
 
 	//handle the error
 	if err != nil {
 		fmt.Println("error creating a request")
 		t.Fatal(err) // This will fail the test
 	}
-	// create a Client to run a Request
-	client := http.Client{}
+	handler := http.HandlerFunc(handlers.Signup)
 
-	//create a request with the client and receive a response back
-	resp, err := client.Do(req)
-	//handle the error
-	if err != nil {
-		t.Fatal(err) // This will fail the test
-	}
+	rr := httptest.NewRecorder()
 
-	// Now at this point we have a response and we can read all it says
-	//lets close the response body last
-	defer resp.Body.Close()
+	handler.ServeHTTP(rr, req)
 
 	//Lets read the status code and make sure it returns OK
-	if code := resp.StatusCode; code != 200 {
+	if code := rr.Code; code != http.StatusOK {
 		t.Errorf("Test failed, server returned a status code %v instead of 200", code) // fail the test
+	}
+
+	if rr.Body.String() != data {
+		t.Errorf("Expected: %v Actual : %v", data, rr.Body.String())
 	}
 
 }

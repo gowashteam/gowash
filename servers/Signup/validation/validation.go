@@ -7,41 +7,51 @@ import (
 	"regexp"
 
 	"github.com/okeyonyia123/gowash/servers/Signup/datastore"
-	"github.com/okeyonyia123/gowash/servers/Signup/handlers"
+	"github.com/okeyonyia123/gowash/servers/Signup/models"
 )
 
-func QuerryDB(interface querry, string querryType) (string, error) {
+type Validate struct {
+	Errors     map[string]error
+	FormFields map[string]string
+}
+
+func (v *Validate) QuerryDB(querry interface{}, querryType string) (*models.User, error) {
 	db, err := datastore.NewDatastore(datastore.MONGODB, "159.65.188.249:27017")
+
+	var user *models.User
 
 	if err != nil {
 		log.Print(err)
 	} else {
-		fmt.Println("Established Connection to Database on: %v", db) //log the connection to indicate successful connection
+		fmt.Printf("Established Connection to Database on : %v", db) //log the connection to indicate successful connection
+		fmt.Println()
 	}
 
-  //Switch querryType to talk to the database depending on what exactly we want
-  switch querryType {
-  case getUser:
-    user, err := db.GetUser(querry)
-    if err != nil {
-      return nil, err
-    }
-    return user nil
+	//Switch querryType to talk to the database depending on what exactly we want
+	switch querryType {
+	case "getUser":
+		aUser, err := db.GetUser(querry.(string)) //type assertion to convert the interface to actual type
+		if err != nil {
+			return nil, err
+		}
+		user = aUser
 
-  case postUser:
-    err := db.PostUser(querry)
-    if err != nil {
-      return nil, err
-    }
-    return nil,nil
+	case "postUser":
+		aUser, err := db.PostUser(querry.(*models.User)) //type assertion to convert the interface to actual type
+		if err != nil {
+			return nil, err
+		}
+		user = aUser
 
-  }
+	}
 
 	defer db.Close() //close connection
 
+	return user, nil
+
 }
 
-func ValidateEmail(email string) (bool, error) {
+func (v *Validate) ValidateEmail(email string) (bool, error) {
 	//check if valid email
 	re := regexp.MustCompile(`^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$`)
 	matched := re.MatchString(email)
@@ -50,22 +60,23 @@ func ValidateEmail(email string) (bool, error) {
 	}
 
 	//check if valid email already exists on database
-	user, _ := QuerryDB(email)
+	user, _ := v.QuerryDB(email, "getUSer")
 
 	if user != nil {
 		//email already exixts in database
-		return false, errors.new("Email already exixts")
+		return false, errors.New("Email already exixts")
 	}
+	fmt.Println(user)
 	return true, nil
 }
 
-func ValidateUsername(username string) (bool, error) {
+func (v *Validate) ValidateUsername(username string, FieldValues map[string]string) (bool, error) {
 	if username == "" {
-		return false, errors.New("username cannot be empty")
+		return false, errors.New("username field cannot be empty")
 	}
 
 	//check to see if username is taken
-	user, _ := QuerryDB(username)
+	user, _ := v.QuerryDB(username, "getUser")
 	if user != nil {
 		return false, errors.New("username is taken")
 	}
@@ -74,19 +85,96 @@ func ValidateUsername(username string) (bool, error) {
 
 }
 
-func validateForm(form *handlers.Form) {
+func (v *Validate) ValidateFirstName(firstname string) (bool, error) {
+
+	if firstname == "" {
+		return false, errors.New("firstname field cannot be empty")
+	}
+
+	return true, nil
+}
+
+func (v *Validate) ValidateLastName(lastname string) (bool, error) {
+
+	if lastname == "" {
+		return false, errors.New("lastname field cannot be empty")
+	}
+
+	return true, nil
+}
+
+func (v *Validate) ValidatePassword(password string) (bool, error) {
+
+	if password == "" {
+		return false, errors.New("password field cannot be empty")
+	}
+
+	return true, nil
+}
+
+func (v *Validate) ValidateConfirmPassword(FieldValues map[string]string) (bool, error) {
+
+	if len(FieldValues["confirmpassword"]) == 0 {
+		return false, errors.New("confirmpassword field cannot be empty")
+	}
+
+	if FieldValues["confirmpassword"] != FieldValues["password"] {
+		return false, errors.New("confirmpassword field must match password field")
+	}
+
+	return true, nil
+}
+
+func (validator *Validate) ValidateForm(FieldValues map[string]string) map[string]error {
+	//initialize error map to store new errors
+	v := Validate{}
+	v.Errors = make(map[string]error)
+
 	//range over the form and validate the various fields
-	for field, value := range form.FieldValues {
+	for field, value := range FieldValues {
 		switch field {
+
 		case "email":
-			if isValid, err := ValidateEmail(value); !isValid {
-				form.Errors[field] = err
+			if isValid, err := v.ValidateEmail(value); !isValid {
+				v.Errors[field] = err
 			}
 			break
+
 		case "username":
-			if isValid, err := ValidateUsername(field); !isValid {
-				form.Errors[field] = err
+			if isValid, err := v.ValidateUsername(value, FieldValues); !isValid {
+				v.Errors[field] = err
 			}
+			break
+
+		case "firstname":
+			if isValid, err := v.ValidateFirstName(value); !isValid {
+				v.Errors[field] = err
+			}
+			break
+
+		case "lastname":
+			if isValid, err := v.ValidateLastName(value); !isValid {
+				v.Errors[field] = err
+			}
+			break
+
+		case "password":
+			if isValid, err := v.ValidatePassword(value); !isValid {
+				v.Errors[field] = err
+			}
+			break
+
+		case "confirmpassword":
+			if isValid, err := v.ValidateConfirmPassword(FieldValues); !isValid {
+				v.Errors[field] = err
+			}
+			break
+
+		default:
+			v.Errors["default"] = errors.New("cannot validate form fields provided. Please refer to the API documentation for possible form fields")
+			return v.Errors
 		}
 	}
+
+	return v.Errors
 }

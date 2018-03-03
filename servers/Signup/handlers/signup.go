@@ -11,44 +11,51 @@ import (
 type Form struct {
 	FieldNames  []string
 	FieldValues map[string]string
-	Errors      map[string]string
+	Errors      map[string]error
 }
 
+var validate *validation.Validate
+
 func Signup(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK) //Set the header
-	//w.Write([]byte("Signup handler is Up"))
+	w.WriteHeader(http.StatusOK)                       //Set the header
+	w.Header().Set("content-type", "application/json") //Set content type
 	fmt.Println("Signup Handler hit")
+	fmt.Println(r.FormValue("email"))
 
 	//Get an intance of a form
-	newForm := form{}
-	newForm.FieldNames = []string{"username","firstname", "lastname" "email", "password"} //object literal
-	newForm.FieldValues = make(map[string]string)      //initialize a new empty map
-	newForm.Errors = make(map[string]string)           //initialize a new map for error map
-
+	newForm := Form{}
+	newForm.FieldNames = []string{"username", "firstname", "lastname", "email", "password", "confirmpassword"} //object literal
+	newForm.FieldValues = make(map[string]string)                                                              //initialize a new empty map
+	newForm.Errors = make(map[string]error)
 	//send the request body to a validation function
 	PopulateForm(r, &newForm) //the form is populated and ready to be returned to the client
 
 	//validate the form inputs
-	//validate Email
-	validation.validateForm(&newForm)
+	//validateForm(FieldValues map[string]string) map[string]error
+
+	newForm.Errors = validate.ValidateForm(newForm.FieldValues)
 
 	//check to see if form.errors isempty
 	if len(newForm.Errors) > 0 {
+		fmt.Println("an error occurered")
 		fmt.Fprint(w, newForm)
 		return
 	}
 
 	//pass the form to a function that builds a user Model
-	user := models.NewUser(newForm)
+	user := models.NewUser(newForm.FieldValues)
 
 	//Pass the Model to the function that talks to the database
-	postedUser, err := validation.querryDB(user, postUser)
+	postedUser, err := validate.QuerryDB(user, "postUser")
 
 	//If everything goes well, return the model back to the user
 	if err != nil {
+
 		fmt.Fprint(w, err)
 		return
 	}
+
+	fmt.Println(postedUser)
 
 	fmt.Fprint(w, postedUser)
 

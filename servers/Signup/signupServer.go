@@ -19,7 +19,7 @@ func main() {
 	r.HandleFunc("/", handlers.HomeHandler).Methods("GET")
 
 	//signup handler
-	r.HandleFunc("/signup", handlers.Signup).Methods("GET")
+	r.HandleFunc("/signup", handlers.Signup).Methods("GET", "POST")
 
 	//login
 	r.HandleFunc("/login", handlers.Login).Methods("GET")
