@@ -1,13 +1,27 @@
 package tests
 
 import (
-	"fmt"
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"testing"
 
 	"github.com/okeyonyia123/gowash/servers/Signup/handlers"
+	"github.com/okeyonyia123/gowash/servers/Signup/models"
 )
+
+/**
+type User struct {
+	UUID              string `json:"uuid" bson:"uuid"`
+	Username          string `json:"username" bson:"username"`
+	FirstName         string `json:"firstName" bson:"firstName"`
+	LastName          string `json:"lastName" bson:"lastName"`
+	Email             string `json:"email" bson:"email"`
+	PasswordHash      string `json:"passwordHash" bson:"passwordHash"`
+	TimestampCreated  int64  `json:"timestampCreated" bson:"timestampCreated"`
+	TimestampModified int64  `json:"timestampModified" bson:"timestampModified"`
+} **/
 
 func TestHomePage(t *testing.T) {
 	//step1: Create a sample Request which satisfies *http.Request
@@ -37,35 +51,67 @@ func TestHomePage(t *testing.T) {
 func TestSignUp(t *testing.T) {
 	//create a Request
 
-	data := `{
+	data := url.Values{
 		"email":           {"onyia.okey@gmail.com"},
-		"username":        {"des1201"},
+		"username":        {"kem"},
 		"firstname":       {"okey"},
 		"lastname":        {"onyia"},
-		"password":        {"security"},
+		"password":        {"security1"},
 		"confirmpassword": {"security"},
-	}`
-
-	req, err := http.NewRequest("POST", "/signup", nil)
-
-	//handle the error
-	if err != nil {
-		fmt.Println("error creating a request")
-		t.Fatal(err) // This will fail the test
 	}
-	handler := http.HandlerFunc(handlers.Signup)
+
+	encodedData := data.Encode() //transform to a querry
+
+	//payload := []byte(`{"name":"test product","price":11.22}`)
+	//reader := strings.NewReader(payload)
+
+	url := "http://localhost:8084/signup/?" + encodedData //form a full querry url
+
+	req, err := http.NewRequest("POST", url, nil) //push a new request
+
+	if err != nil {
+		t.Errorf("error getting a request")
+		return
+	}
 
 	rr := httptest.NewRecorder()
 
+	handler := http.HandlerFunc(handlers.Signup)
+
 	handler.ServeHTTP(rr, req)
 
-	//Lets read the status code and make sure it returns OK
 	if code := rr.Code; code != http.StatusOK {
-		t.Errorf("Test failed, server returned a status code %v instead of 200", code) // fail the test
+		t.Errorf("Server returned %v instead of %v", code, http.StatusOK) // test will fail
 	}
 
-	if rr.Body.String() != data {
-		t.Errorf("Expected: %v Actual : %v", data, rr.Body.String())
+	//var promise map[string]string
+	var promise *models.User
+	var eroorPromise *handlers.Form
+	fromServer := rr.Body.Bytes()
+
+	json.Unmarshal(fromServer, &promise)
+	json.Unmarshal(fromServer, &eroorPromise)
+	// !reflect.DeepEqual(promise, payload)
+	switch rr.Code == http.StatusOK {
+	case true:
+		if promise.Username != "dessssy" {
+			t.Error("Test Failed")
+			t.Error(rr.Code)
+			t.Error(promise)
+			return
+		}
+
+	case false:
+		if len(eroorPromise.Errors) > 0 {
+			t.Error("Test Failed")
+			t.Error(eroorPromise)
+			t.Error(rr.Code)
+			return
+		}
+
+	default:
+		t.Errorf("There is a problem with the test code")
+
 	}
 
 }

@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -17,7 +18,7 @@ type Form struct {
 var validate *validation.Validate
 
 func Signup(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)                       //Set the header
+
 	w.Header().Set("content-type", "application/json") //Set content type
 	fmt.Println("Signup Handler hit")
 	fmt.Println(r.FormValue("email"))
@@ -27,18 +28,18 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	newForm.FieldNames = []string{"username", "firstname", "lastname", "email", "password", "confirmpassword"} //object literal
 	newForm.FieldValues = make(map[string]string)                                                              //initialize a new empty map
 	newForm.Errors = make(map[string]error)
-	//send the request body to a validation function
-	PopulateForm(r, &newForm) //the form is populated and ready to be returned to the client
+	//populate FormField with client request so we can work with the form
+	PopulateForm(r, &newForm)
 
 	//validate the form inputs
-	//validateForm(FieldValues map[string]string) map[string]error
-
 	newForm.Errors = validate.ValidateForm(newForm.FieldValues)
 
-	//check to see if form.errors isempty
+	//check to see if there is any error in the validation process then handle it
 	if len(newForm.Errors) > 0 {
 		fmt.Println("an error occurered")
-		fmt.Fprint(w, newForm)
+		fmt.Println(newForm.Errors)
+		w.WriteHeader(http.StatusNotAcceptable)
+		json.NewEncoder(w).Encode(newForm)
 		return
 	}
 
@@ -50,14 +51,15 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 
 	//If everything goes well, return the model back to the user
 	if err != nil {
-
 		fmt.Fprint(w, err)
 		return
 	}
 
 	fmt.Println(postedUser)
 
-	fmt.Fprint(w, postedUser)
+	//fmt.Fprint(w, postedUser) //actual response written to client
+	json.NewEncoder(w).Encode(postedUser)
+	w.WriteHeader(http.StatusOK) //Set the header
 
 }
 

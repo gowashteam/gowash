@@ -61,7 +61,6 @@ func (v *Validate) ValidateEmail(email string) (bool, error) {
 
 	//check if valid email already exists on database
 	user, _ := v.QuerryDB(email, "getUSer")
-
 	if user != nil {
 		//email already exixts in database
 		return false, errors.New("Email already exixts")
