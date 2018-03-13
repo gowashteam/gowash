@@ -12,7 +12,7 @@ import (
 type Form struct {
 	FieldNames  []string
 	FieldValues map[string]string
-	Errors      map[string]error
+	Errors      map[string]interface{}
 }
 
 var validate *validation.Validate
@@ -27,7 +27,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	newForm := Form{}
 	newForm.FieldNames = []string{"username", "firstname", "lastname", "email", "password", "confirmpassword"} //object literal
 	newForm.FieldValues = make(map[string]string)                                                              //initialize a new empty map
-	newForm.Errors = make(map[string]error)
+	newForm.Errors = make(map[string]interface{})
 	//populate FormField with client request so we can work with the form
 	PopulateForm(r, &newForm)
 

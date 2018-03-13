@@ -96,16 +96,14 @@ func TestSignUp(t *testing.T) {
 	case true:
 		if promise.Username != "dessssy" {
 			t.Error("Test Failed")
-			t.Error(rr.Code)
 			t.Error(promise)
 			return
 		}
 
 	case false:
-		if len(eroorPromise.Errors) > 0 {
+		if len(eroorPromise.Errors) < 1 {
 			t.Error("Test Failed")
 			t.Error(eroorPromise)
-			t.Error(rr.Code)
 			return
 		}
 

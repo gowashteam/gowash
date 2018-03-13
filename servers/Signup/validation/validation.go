@@ -11,7 +11,7 @@ import (
 )
 
 type Validate struct {
-	Errors     map[string]error
+	Errors     map[string]interface{}
 	FormFields map[string]string
 }
 
@@ -124,10 +124,10 @@ func (v *Validate) ValidateConfirmPassword(FieldValues map[string]string) (bool,
 	return true, nil
 }
 
-func (validator *Validate) ValidateForm(FieldValues map[string]string) map[string]error {
+func (validator *Validate) ValidateForm(FieldValues map[string]string) map[string]interface{} {
 	//initialize error map to store new errors
 	v := Validate{}
-	v.Errors = make(map[string]error)
+	v.Errors = make(map[string]interface{})
 
 	//range over the form and validate the various fields
 	for field, value := range FieldValues {

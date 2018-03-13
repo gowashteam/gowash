@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>GoWash - </title>
+<link rel="stylesheet" type="text/css" href="/static/css/pure.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/gowash.css" />
+<link  href="https://fonts.googleapis.com/css?family=Lobster:regular" rel="stylesheet" type="text/css" >
+
+</head>
+<body>
+
+<div id="sitelogo">gowash Logo</div>
+
+<div id="navigationBar">
+<ul>
+	<li><a href="/home">Home</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/contactus">Contact Us</a></li>
+	<li ><a href="/login">Sign in</a></li>
+
+</ul>
+</li>
+
+
+	<div class="container">
+    <legend ></legend>
+    <h1>GoWash - Sign Up</h1>
+  	<form action="/signup" method="POST" class="pure-form pure-form-aligned">
+  		<fieldset>
+
+  			<div class="form-group row">
+  				<label class="col-2 col-form-label" for="username">Username</label>
+  				<input class="form-control" id="username" type="text" placeholder="Username" name="username" value="{{.Fields.username}}">
+  				<span id="usernameError" class="pure-form-message-inline">{{.Errors.usernameError}}</span>
+  			</div>
+				<br>
+
+  			<div class="form-group row">
+  				<label class="col-2 col-form-label" for="firstName">First Name</label>
+  				<input class="form-control" id="firstName" type="text" placeholder="First Name" name="firstName" value="{{.Fields.firstName}}">
+  				<span id="firstNameError" class="pure-form-message-inline">{{.Errors.firstNameError}}</span>
+  			</div>
+				<br>
+
+  			<div class="form-group row">
+  				<label class="col-2 col-form-label" for="lastName">Last Name</label>
+  				<input class="form-control" id="lastName" type="text" placeholder="Last Name" name="lastName" value="{{.Fields.lastName}}">
+  				<span id="lastNameError" class="pure-form-message-inline">{{.Errors.lastNameError}}</span>
+  			</div>
+				<br>
+
+
+				<div class="form-group row">
+  				<label class="col-2 col-form-label" for="email">E-mail Address</label>
+  				<input class="form-control" id="email" type="text" placeholder="E-mail Address" name="email" value="{{.Fields.email}}">
+  				<span id="emailError" class="pure-form-message-inline">{{.Errors.emailError}}</span>
+  			</div>
+				<br>
+
+				<div class="form-group row">
+					<label class="col-2 col-form-label" for="type">Register As</label>
+  				<input id="type"type="radio" name="type" value="partner">Partner
+					<input id="type"type="radio" name="type" value="client">Client
+  			</div>
+				<br>
+
+  			<div class="form-group row">
+  				<label class="col-2 col-form-label" for="password">Password</label>
+  				<input class="form-control" id="password" type="password" placeholder="Password" name="password" value="{{.Fields.password}}">
+  				<span id="passwordError" class="pure-form-message-inline">{{.Errors.passwordError}}</span>
+  			</div>
+				<br>
+
+  			<div class="form-group row">
+  				<label class="col-2 col-form-label" for="name">Confirm Password</label>
+  				<input class="form-control" id="confirmPassword" type="password" placeholder="Confirm Password" name="confirmPassword" value="{{.Fields.confirmPassword}}">
+  				<span id="confirmPasswordError" class="pure-form-message-inline">{{.Errors.confirmPasswordError}}</span>
+  			</div>
+				<br>
+
+
+
+
+							<div class="pure-controls">
+								<input class="pure-button pure-button-primary" type="submit" value="Sign Up" />
+							</div>
+
+  		</fieldset>
+  	</form>
+	</div>
