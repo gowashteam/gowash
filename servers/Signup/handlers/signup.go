@@ -19,6 +19,11 @@ var validate *validation.Validate
 
 func Signup(w http.ResponseWriter, r *http.Request) {
 
+	if r.Method == "GET" {
+		PushPage(w, "./views/login.html", Form{})
+		return
+	}
+
 	w.Header().Set("content-type", "application/json") //Set content type
 	fmt.Println("Signup Handler hit")
 	fmt.Println(r.FormValue("email"))

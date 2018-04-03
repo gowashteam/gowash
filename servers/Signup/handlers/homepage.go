@@ -5,6 +5,5 @@ import (
 )
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Homepage server is Up"))
+	PushPage(w, "./views/gowash/index.html", nil)
 }

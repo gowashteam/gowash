@@ -22,3 +22,6 @@ SELECT AVG(price) FROM ap.Room;
 
 SELECT hotelNo, COUNT(roomNo) AS count FROM ap.Room
 GROUP BY hotelNo
+
+UPDATE ap.Room
+SET price = price * 1.05;

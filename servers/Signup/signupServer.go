@@ -21,11 +21,14 @@ func main() {
 	//signup handler
 	r.HandleFunc("/signup", handlers.Signup).Methods("GET", "POST")
 
-	//login
-	r.HandleFunc("/login", handlers.Login).Methods("GET")
-
 	//compile mux router
 	http.Handle("/", r)
+
+	//Handle favicon request until we have a favicon to work with
+	http.Handle("/favicon.ico", http.NotFoundHandler())
+
+	//styling
+	r.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("./views/gowash/css"))))
 
 	http.ListenAndServe(WEBSERVERPORT, nil)
 }
